@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Contador de calorias</h1>
+      <h1 className="text-6xl">Contador de calorias</h1>
     </>
   )
 }
 
 export default App
+
+//SECTION -para instalar Tailwind: npm i -D tailwindcss postcss autoprefixer
+//SECTION - luego para generar archivo de tailwind.config.js: npx tailwind init -p
