@@ -1,8 +1,12 @@
+import { useReducer } from "react"
 import Form from "./components/Form"
+import { activityReducer, initialState } from "./reducers/activity-reducer"
 
 
 function App() {
-
+  //!SECTION nuestro codigo no sabe cuando ejecutar las acciones del reducer, por eso distpatcher se usa para decirle donde
+  //NOTE - COMO PUEDO TENER VARIOS REDUCERS POR ESO NECESITO PASAR COMO PRIMER PARAMETRO CUAL REDUCER(ACTIVITYREDUCER)
+  const[state, dispatch] = useReducer(activityReducer,initialState);
   return (
     <>
       <header className="p-4 bg-lime-600 ">
@@ -12,7 +16,9 @@ function App() {
       </header>
       <section className="bg-lime-500 py-20 px-5">
         <div className="max-w-4xl mx-auto">
-          <Form/>
+          <Form
+            dispatch={dispatch}
+          />
         </div>
       </section>
     </>

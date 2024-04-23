@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import { categories } from "../data/categories";
 import type { Activity } from "../types";
+import { ActivityActions } from "../reducers/activity-reducer";
 
-function Form() {
+type FormProps = {
+  dispatch:Dispatch<ActivityActions>
+}
+
+function Form({dispatch}:FormProps) {
   //NOTE - voy a crear el state, podira ser valido hacer esto
   /*
     const[category,setCategory] = useState();
@@ -36,8 +41,16 @@ function Form() {
     return name.trim() !== "" && calories > 0
   }
 
+  function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+    e.preventDefault()
+    //SECTION - LLAMANDO EL ACTION 
+    dispatch({
+      type:"save-activity",
+      payload:{newActivity:activity}
+    })
+  }
   return (
-    <form className="p-10 space-y-5 bg-white rounded-lg shadow-md">
+    <form className="p-10 space-y-5 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
       <section className="grid grid-cols-1 gap-3">
         <label htmlFor="caregory" className="font-bold">
           Categoria:
