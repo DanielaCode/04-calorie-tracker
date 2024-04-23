@@ -16,18 +16,22 @@ import type { Activity } from "../types"
 //SECTION - Types
 
 export type ActivityActions = 
-    {type:"save-activity", payload: {newActivity:Activity}}
+    {type:"save-activity", payload: {newActivity:Activity}}|
+    {type:"set-activeId", payload: {id:Activity["id"]}}
+
     //NOTE - puede ser mas de una con join asi-> |{type:"delete-activity", payload: {id:id}}
 
 type ActivityState = {
-    activities:Activity[]
+    activities:Activity[],
+    activeId:Activity["id"]//NOTE - para cuando quiero editar una actividad, para saber cual es la que presione
 }
 
 
 //SECTION - Estado inicial del estado
 export const initialState:ActivityState ={
     //lista de actividades que se va llenando cuando el usuario escribe una nueva actividad en el form
-    activities: []
+    activities: [],
+    activeId:""
 }
 
 //SECTION - Reducer
@@ -38,7 +42,7 @@ export function activityReducer(
 ){
     if(action.type === "save-activity"){
         //ESTE CODIGO MANEJA LA LOGICA PARA ACTUALIZAR EL STATE
-        console.log("DESDE SAVE-ACTIVITY ESTE ES EL PAYLOAD PASADO DESDE EL FORM: " + action.payload.newActivity)
+        //console.log("DESDE SAVE-ACTIVITY ESTE ES EL PAYLOAD PASADO DESDE EL FORM: " + action.payload.newActivity)
 
         //NOTE - EN ESTOS IF SE TIENE QUE TENER EL RETURN QUE ES EL ESTADO ACTUALIZADO
         return{
@@ -46,4 +50,13 @@ export function activityReducer(
             activities: [...state.activities, action.payload.newActivity]//seting the payload in the state
         }
     }
+
+    if(action.type==="set-activeId"){
+        return{
+            ...state,
+            activeId:action.payload.id
+        }
+    }
+
+    
 }

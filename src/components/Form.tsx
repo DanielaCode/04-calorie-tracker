@@ -27,7 +27,7 @@ function Form({dispatch}:FormProps) {
 
  //!SECTION asi se puede hacer para uar la misma funcion para todos los onchange
  const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
-    console.log(e.target.id+": "+e.target.value)
+    //console.log(e.target.id+": "+e.target.value)
 
     const isNumberField = ["category","calories"].includes(e.target.id)
 
