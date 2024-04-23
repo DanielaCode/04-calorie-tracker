@@ -16,6 +16,17 @@ function Form() {
     calories:0
  });
 
+ //!SECTION asi se puede hacer para uar la misma funcion para todos los onchange
+ const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
+    console.log(e.target.id+": "+e.target.value)
+    setActivity({
+      //NOTE - para que no pierda el state cada que cambie
+      ...activity,
+      //NOTE - setear buscando un key especifico
+      [e.target.id]:e.target.value
+    })
+ }
+
   return (
     <form className="p-10 space-y-5 bg-white rounded-lg shadow-md">
       <section className="grid grid-cols-1 gap-3">
@@ -29,11 +40,12 @@ function Form() {
           //!SECTION por el momento esto es oneway data binding, no puedo modificar el state desde el input
           //!SECTION para hacerlo necesito onchange
           value={activity.category}
+          //!SECTION ahora si es bidireccional pero tengo que escribir la logica en mi handler
+          onChange={handleChange}
         >
           {categories.map((e) => (
             <option key={e.id} value={e.id}>
-              <label htmlFor={e.name}>{e.name}</label>
-              <input type="text" name={e.name} />
+              {e.name}
             </option>
           ))}
         </select>
@@ -50,6 +62,7 @@ function Form() {
           className="border border-slate-300 p-2 rounded-lg w-full bg-white"
           placeholder="EJ. comida, jugo de naranja, ensalada"
           value={activity.name}
+          onChange={handleChange}
         />
       </section>
 
@@ -64,6 +77,7 @@ function Form() {
           className="border border-slate-300 p-2 rounded-lg w-full bg-white"
           placeholder="EJ calorias. 200, 500"
           value={activity.calories}
+          onChange={handleChange}
         />
       </section>
       
