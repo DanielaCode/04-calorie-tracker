@@ -15,6 +15,7 @@ function ActivityList({activities}:ActivityListProps) {
             activities.map(e=>(
                 <div key={e.id} className="px-5 py-10 bg-white mt-5 flex justify-between shadow-md">
                     <div className="space-y-2 relative">
+                        //!SECTION USEMEMO se usa cuando en el template tengo que invocar una funcion, como aca pero no siempre que se rerenderice, solo cuando una dependencia o varias cambien, asi se queda en cahce el resultado de la operacion
                         <p className={`absolute -top-8 -left-8 px-10 py-2 text-white uppercase font-bold ${e.category===1?"bg-lime-500":"bg-orange-500"}`}
                         >{categoryNameById(+e.category)}</p>
                         <p className="text-3xl font-black">{e.name}</p>
