@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { categories } from "../data/categories";
+import type { Activity } from "../types";
 
 function Form() {
   //NOTE - voy a crear el state, podira ser valido hacer esto
@@ -10,7 +11,7 @@ function Form() {
     
     pero son muchos states y al final todos estan relacionados dependen uno del otro para calculos, puedo hacer mejor esto:
   */
- const[activity,setActivity] = useState({
+ const[activity,setActivity] = useState<Activity>({
     category:1,
     name:" ",
     calories:0
@@ -19,11 +20,14 @@ function Form() {
  //!SECTION asi se puede hacer para uar la misma funcion para todos los onchange
  const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
     console.log(e.target.id+": "+e.target.value)
+
+    const isNumberField = ["category","calories"].includes(e.target.id)
+
     setActivity({
       //NOTE - para que no pierda el state cada que cambie
       ...activity,
-      //NOTE - setear buscando un key especifico
-      [e.target.id]:e.target.value
+      //NOTE - setear buscando un key especifico, para que ponga como number los campos que deberian ser number
+      [e.target.id]: isNumberField?+e.target.value:e.target.value
     })
  }
 
