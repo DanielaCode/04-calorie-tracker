@@ -43,7 +43,7 @@ export function activityReducer(
         //NOTE - EN ESTOS IF SE TIENE QUE TENER EL RETURN QUE ES EL ESTADO ACTUALIZADO
         return{
             ...state, //copia de mi state
-            activies: [...state.activities, action.payload.newActivity]//seting the payload in the state
+            activities: [...state.activities, action.payload.newActivity]//seting the payload in the state
         }
     }
 }

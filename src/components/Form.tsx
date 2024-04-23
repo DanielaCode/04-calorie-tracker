@@ -1,7 +1,8 @@
 import { Dispatch, useState } from "react";
 import { categories } from "../data/categories";
 import type { Activity } from "../types";
-import { ActivityActions } from "../reducers/activity-reducer";
+import { ActivityActions, initialState } from '../reducers/activity-reducer';
+import {v4 as uuidv4} from "uuid";
 
 type FormProps = {
   dispatch:Dispatch<ActivityActions>
@@ -16,11 +17,13 @@ function Form({dispatch}:FormProps) {
     
     pero son muchos states y al final todos estan relacionados dependen uno del otro para calculos, puedo hacer mejor esto:
   */
- const[activity,setActivity] = useState<Activity>({
-    category:1,
-    name:" ",
-    calories:0
- });
+ const initialState:Activity = {
+  id:uuidv4(),
+  category:1,
+  name:" ",
+  calories:0
+}
+ const[activity,setActivity] = useState<Activity>(initialState);
 
  //!SECTION asi se puede hacer para uar la misma funcion para todos los onchange
  const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
@@ -48,6 +51,7 @@ function Form({dispatch}:FormProps) {
       type:"save-activity",
       payload:{newActivity:activity}
     })
+    setActivity({...initialState,id:uuidv4()});//copia del initialstate pero con otro id
   }
   return (
     <form className="p-10 space-y-5 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
