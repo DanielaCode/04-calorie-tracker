@@ -1,14 +1,24 @@
-import { Dispatch, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { categories } from "../data/categories";
 import type { Activity } from "../types";
-import { ActivityActions, initialState } from '../reducers/activity-reducer';
+import { ActivityActions, ActivityState, initialState } from '../reducers/activity-reducer';
 import {v4 as uuidv4} from "uuid";
 
 type FormProps = {
-  dispatch:Dispatch<ActivityActions>
+  dispatch:Dispatch<ActivityActions>,
+  state:ActivityState,
 }
 
-function Form({dispatch}:FormProps) {
+function Form({dispatch,state}:FormProps) {
+  //!SECTION recordar que  useEffect es útil cuando necesitas realizar alguna acción después de que el componente se monte, actualice o desmonte
+  useEffect(() => {
+    if(state.activeId){
+      const activityFinded:Activity = state.activities.filter(e=>e.id===state.activeId)[0];//because the ID is unique so it will only find one
+      setActivity(activityFinded);
+    }
+
+  }, [state.activeId])
+  
  const initialState:Activity = {
   id:uuidv4(),
   category:1,
