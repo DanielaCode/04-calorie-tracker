@@ -21,9 +21,20 @@ export function activityReducer(
 
 ){
     if(action.type === "save-activity"){
+      
+        let updatedActivities:Activity[] = []
+
+        if (state.activeId) {
+            //SECTION - asi recorro las actividades en el reducer y encuentro la que tiene el id actual, hecho esto retorno el valor que el usuario acaba de ingresar
+            updatedActivities = state.activities.map(e=>e.id===state.activeId?action.payload.newActivity:e)
+        } else {
+            updatedActivities = [...state.activities, action.payload.newActivity]
+        }
+
         return{
             ...state,
-            activities: [...state.activities, action.payload.newActivity]
+            activities:updatedActivities,
+            activeId:""//!SECTION cada que se cree o modifique una nueva actividad, reiniciar 
         }
     }
 
