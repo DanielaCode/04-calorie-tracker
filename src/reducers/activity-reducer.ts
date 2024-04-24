@@ -62,6 +62,7 @@ export function activityReducer(
             activeId:""
         }
     }
+    return state;
     
 }
 
