@@ -9,14 +9,6 @@ type FormProps = {
 }
 
 function Form({dispatch}:FormProps) {
-  //NOTE - voy a crear el state, podira ser valido hacer esto
-  /*
-    const[category,setCategory] = useState();
-    const[activity,setActivity]= useState();
-    const[calories,setCalories] = useState();
-    
-    pero son muchos states y al final todos estan relacionados dependen uno del otro para calculos, puedo hacer mejor esto:
-  */
  const initialState:Activity = {
   id:uuidv4(),
   category:1,
@@ -25,16 +17,13 @@ function Form({dispatch}:FormProps) {
 }
  const[activity,setActivity] = useState<Activity>(initialState);
 
- //!SECTION asi se puede hacer para uar la misma funcion para todos los onchange
  const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
     //console.log(e.target.id+": "+e.target.value)
 
     const isNumberField = ["category","calories"].includes(e.target.id)
 
     setActivity({
-      //NOTE - para que no pierda el state cada que cambie
       ...activity,
-      //NOTE - setear buscando un key especifico, para que ponga como number los campos que deberian ser number
       [e.target.id]: isNumberField?+e.target.value:e.target.value
     })
  }
@@ -46,12 +35,11 @@ function Form({dispatch}:FormProps) {
 
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault()
-    //SECTION - LLAMANDO EL ACTION 
     dispatch({
       type:"save-activity",
       payload:{newActivity:activity}
     })
-    setActivity({...initialState,id:uuidv4()});//copia del initialstate pero con otro id
+    setActivity({...initialState,id:uuidv4()});
   }
   return (
     <form className="p-10 space-y-5 bg-white rounded-lg shadow-md" onSubmit={handleSubmit}>
@@ -63,10 +51,7 @@ function Form({dispatch}:FormProps) {
           id="category"
           name="category"
           className="border border-slate-300 p-2 rounded-lg w-full bg-white"
-          //!SECTION por el momento esto es oneway data binding, no puedo modificar el state desde el input
-          //!SECTION para hacerlo necesito onchange
           value={activity.category}
-          //!SECTION ahora si es bidireccional pero tengo que escribir la logica en mi handler
           onChange={handleChange}
         >
           {categories.map((e) => (

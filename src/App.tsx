@@ -5,8 +5,6 @@ import ActivityList from "./components/ActivityList";
 
 
 function App() {
-  //!SECTION nuestro codigo no sabe cuando ejecutar las acciones del reducer, por eso distpatcher se usa para decirle donde
-  //NOTE - COMO PUEDO TENER VARIOS REDUCERS POR ESO NECESITO PASAR COMO PRIMER PARAMETRO CUAL REDUCER(ACTIVITYREDUCER)
   const[state, dispatch] = useReducer(activityReducer,initialState);
   return (
     <>
@@ -33,6 +31,3 @@ function App() {
 }
 
 export default App
-
-//SECTION -para instalar Tailwind: npm i -D tailwindcss postcss autoprefixer
-//SECTION - luego para generar archivo de tailwind.config.js: npx tailwind init -p
