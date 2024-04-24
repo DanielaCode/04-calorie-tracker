@@ -29,9 +29,9 @@ function Form({dispatch,state}:FormProps) {
 
  const handleChange=(e:React.ChangeEvent<HTMLSelectElement>|React.ChangeEvent<HTMLInputElement>)=>{
     //console.log(e.target.id+": "+e.target.value)
-
+    
     const isNumberField = ["category","calories"].includes(e.target.id)
-
+    
     setActivity({
       ...activity,
       [e.target.id]: isNumberField?+e.target.value:e.target.value
@@ -40,7 +40,7 @@ function Form({dispatch,state}:FormProps) {
 
  const isValidActivity=()=>{
     const {name,calories} = activity
-    return name.trim() !== "" && calories > 0
+    return name.trim() !== '' && calories > 0
   }
 
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
