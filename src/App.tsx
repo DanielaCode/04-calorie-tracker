@@ -1,4 +1,4 @@
-import { useReducer, Dispatch } from 'react';
+import { useReducer, Dispatch, useEffect } from 'react';
 import Form from "./components/Form"
 import { activityReducer, initialState } from "./reducers/activity-reducer"
 import ActivityList from "./components/ActivityList";
@@ -6,6 +6,9 @@ import ActivityList from "./components/ActivityList";
 
 function App() {
   const[state, dispatch] = useReducer(activityReducer,initialState);
+
+  //!SECTION adding activities to the localstorage
+  useEffect(()=>localStorage.setItem("activities",JSON.stringify(state.activities)) ,[state.activities])
   return (
     <>
       <header className="p-4 bg-lime-600 ">

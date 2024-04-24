@@ -13,7 +13,7 @@ export type ActivityState = {
 }
 
 export const initialState:ActivityState ={
-    activities: [],
+    activities: localStorageActivities(),
     activeId:""
 }
 
@@ -55,4 +55,9 @@ export function activityReducer(
         }
     }
     
+}
+
+function localStorageActivities(){
+    const activities =localStorage.getItem("activities");
+    return activities?JSON.parse(activities):[]
 }
